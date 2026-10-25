@@ -15,6 +15,18 @@ public class Cuenta {
         this.movimientos = new ArrayList<>();
     }
 
+    public Cuenta(String numero, String titular, double saldoInicial) 
+    {
+        this.numero = numero;
+        this.titular = titular;
+        this.saldo = saldoInicial;
+        this.movimientos = new ArrayList<>();
+        if (saldoInicial > 0) 
+        {
+            movimientos.add(new Movimiento(saldoInicial, 'D', "Saldo inicial"));
+        }
+    }
+    
     public void ingresar(double x) 
     {
         if (x > 0) 
@@ -26,10 +38,18 @@ public class Cuenta {
 
     public void retirar(double x) 
     {
-        if (x > 0 && saldo >= x) 
-        {
-            saldo = saldo - x;
-            movimientos.add(new Movimiento(x, 'H', "Reintegro en cuenta"));
+    	if (x > 0) 
+    	{
+            double saldoActual = getSaldo();
+            // Límite de 500
+            if ((saldoActual - x) >= -500) 
+            {
+                movimientos.add(new Movimiento(x, 'H', "Reintegro en cuenta"));
+            } 
+            else 
+            {
+                throw new IllegalArgumentException("Fondo bajo (saldo -" + Math.abs(saldoActual - x) + "€) en la cuenta " + numero + " para el reintegro de " + x + "€");
+            }
         }
     }
 
