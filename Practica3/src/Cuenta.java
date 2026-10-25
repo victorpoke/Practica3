@@ -17,7 +17,8 @@ public class Cuenta {
 
     public void ingresar(double x) 
     {
-        if (x > 0) {
+        if (x > 0) 
+        {
             saldo = saldo + x;
             movimientos.add(new Movimiento(x, 'D', "Ingreso en cuenta"));
         }
@@ -25,7 +26,8 @@ public class Cuenta {
 
     public void retirar(double x) 
     {
-        if (x > 0 && saldo >= x) {
+        if (x > 0 && saldo >= x) 
+        {
             saldo = saldo - x;
             movimientos.add(new Movimiento(x, 'H', "Reintegro en cuenta"));
         }
@@ -34,11 +36,15 @@ public class Cuenta {
     public double getSaldo() 
     {
         saldo = 0.0;
-        for (Movimiento m : movimientos) {
-            if (m.getSigno() == 'D') {
+        for (Movimiento m : movimientos) 
+        {
+            if (m.getSigno() == 'D') 
+            {
                 saldo = saldo + m.getImporte();
-            } else {
-                saldo = saldo + m.getImporte();
+            } 
+            else 
+            {
+                saldo = saldo - m.getImporte();
             }
         }
         return saldo;
